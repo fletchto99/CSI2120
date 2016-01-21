@@ -13,7 +13,7 @@ available(mohamed,saturday).
 available(mohamed,sunday).
 available(amelie,sunday).
 
-travel(hong,ottawa)
+travel(hong,ottawa).
 travel(hong,kingston).
 travel(mohamed,kingston).
 travel(amelie,montreal).
@@ -24,8 +24,8 @@ location(X,Y) :-
         travel(X,Y).
 
 meet(X,Y) :- 
-        location(?,C),
-        location(?,C),
+        location(X,C),
+        location(Y,C),
         X \= Y,
-        available(?,?),
-        available(?,?).
+        available(X,D),
+        available(Y,D).
