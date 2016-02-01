@@ -34,48 +34,52 @@ buyForPaul(T, S, P, B, C) :- tent(T, _, _, TentCost),
 
 %% C %%
 
-mary(MB, MP, MBW, MPW) :- sleepingbag(MB, _, _, MBW, _),
-                sleepingpad(MP, _, MPW, _).
-sean(SB, SP, SBW, SPW) :- sleepingbag(SB, _, _, SBW, _),
-                sleepingpad(SP, _, SPW, _).
-paula(PTB, PP, PTBW, PPW) :- sleepingbag(PTB, _, 2, PTBW, _),
-                sleepingpad(PP, _, PPW, _).
-thomas(PTB, TP, PTBW, TPW) :- sleepingbag(PTB, _, 2, PTBW, _),
-                sleepingpad(TP, _, TPW, _).
-tents(T1, T2, T1W, T2W) :- tent(T1, N1, T1W, _),
-                tent(T2, N2, T2W, _),
-                Num is N1 + N2,
-                Num > 4.
-backpacks(B1, B2, B1C, B2C) :- backpack(B1, B1C ,_),
-                    backpack(B2, B2C, _).
-
-
-tripFor4(PersonalWeight,mary(MB,MP),sean(SB,SP), paula(PTB,PP),thomas(PTB,TP), tents( T1, T2), backpacks(B1,B2)):- tripFor4(PersonalWeight,mary(MB,MP),sean(SB,SP), paula(PTB,PP),thomas(PTB,TP), tents( T1, T2), backpacks(B1,B2), _, _).
-tripFor4(PersonalWeight,mary(MB,MP),sean(SB,SP), paula(PTB,PP),thomas(PTB,TP), tents( T1, T2), backpacks(B1,B2), TotalBackpack, TotalWeight):- 
-                                mary(MB, MP, MBW, MPW),
-                                sean(SB, SP, SBW, SPW),
-                                paula(PTB, PP, PTBW, PPW),
-                                thomas(PTB, TP, PTBW, TPW),
-                                tents(T1, T2, T1W, T2W),
-                                backpacks(B1, B2, B1C, B2C),
-                                TotalWeight is ((PersonalWeight * 4) + MBW + MPW + SBW + SPW + PTBW + PPW + TPW + T1W + T2W),
+tripFor4(PersonalWeight, mary(MB, MP), sean(SB, SP), paula(PTB, PP), thomas(PTB, TP), tents(T1, T2), backpacks(B1, B2)):- tripFor4(PersonalWeight, mary(MB, MP), sean(SB, SP), paula(PTB, PP), thomas(PTB, TP), tents(T1, T2), backpacks(B1, B2), _, _).
+tripFor4(PersonalWeight, mary(MB, MP), sean(SB, SP), paula(PTB, PP), thomas(PTB, TP), tents(T1, T2), backpacks(B1, B2), TotalBackpack, TotalWeight):- 
+                                sleepingbag(MB, _, _, MBW, _),
+                                sleepingpad(MP, _, MPW, _), 
+                                sleepingbag(SB, _, _, SBW, _),
+                                sleepingpad(SP, _, SPW, _),
+                                sleepingbag(PTB, _, 2, PTBW, _),
+                                sleepingpad(PP, _, PPW, _),
+                                sleepingbag(PTB, _, 2, PTBW, _),
+                                sleepingpad(TP, _, TPW, _),
+                                tent(T1, T1P, T1W, _),
+                                tent(T2, T2P, T2W, _),
+                                backpack(B1, B1C , _),
+                                backpack(B2, B2C, _),
+                                TentPersons is (T1P + T2P),
+                                TentPersons > 4,
+                                TotalFPError is ((PersonalWeight * 4) + MBW + MPW + SBW + SPW + PTBW + PPW + TPW + T1W + T2W),
                                 TotalBackpack is (B1C + B2C),
+                                TotalWeight is (truncate(TotalFPError * 10) / 10), %Allow up to two decimal place to prevent floating point error
                                 TotalWeight =< TotalBackpack.
 
 %% D %%
 
-%% package()
+equipment2(PersonalWeight, jill(JB,JP), kyle(KB,KP), tents(Tent), backpacks(BP), TotalSpendingCost) :- equipment2(PersonalWeight, jill(JB,JP), kyle(KB,KP), tents(Tent), backpacks(BP), TotalSpendingCost, _, _, _).
+equipment2(PersonalWeight, jill(JB,JP), kyle(KB,KP), tents(Tent), backpacks(BP), TotalSpendingCost, TotalCost, BW, TotalWeight) :- 
+                                tent(Tent, _, TW, TC),
+                                sleepingbag(JB, _, _, JBW, JBC),
+                                sleepingpad(JP, _, JPW, JPC), 
+                                sleepingbag(KB, _, _, KBW, KBC),
+                                sleepingpad(KP, _, KPW, KPC),
+                                backpack(BP, BW, BC),
+                                TotalWeightError is ((PersonalWeight * 2) + TW + JBW + JPW + KBW + KPW),
+                                TotalCostError is (TC + JBC + JPC + KBC + KPC + BC),
+                                TotalWeight is (truncate(TotalWeightError * 10) / 10),
+                                TotalCost is (truncate(TotalCostError * 10) / 10),
+                                TotalWeight =< BW,
+                                TotalCost =< TotalSpendingCost.
 
 %% E %%
 
-guide(GB, GP, GBW, GPW) :- sleepingbag(GB, _, _, GBW, _),
-                sleepingpad(GP, _, GPW, _).
-
-backpacks(GBP, GBC) :- backpack(GBP, GBC, _).
-
-comfort(GuideWeight, guide(GB,GP), backpacks(GBP), N, TotalWeight, GBC) :- guide(GB, GP, GBW, GPW),
+comfort(GuideWeight, guide(GB,GP), backpacks(GBP), N, TotalWeight, BackpackCapacity) :- 
+                                                        sleepingbag(GB, _, _, GBW, _),
+                                                        sleepingpad(GP, _, GPW, _),
                                                         tent(_, _, TW, _),
-                                                        sleepingpad('Heaven',_,SW,_),
-                                                        backpacks(GBP, GBC),
-                                                        TotalWeight is ((N * (SW + TW)) + GuideWeight + GBW + GPW),
-                                                        TotalWeight =< GBC.
+                                                        sleepingpad('Heaven', _, SW, _),
+                                                        backpack(GBP, BackpackCapacity, _),
+                                                        TotalWeightError is ((N * (SW + TW)) + GuideWeight + GBW + GPW),
+                                                        TotalWeight is (truncate(TotalWeightError * 10) / 10),
+                                                        TotalWeight =< BackpackCapacity.
