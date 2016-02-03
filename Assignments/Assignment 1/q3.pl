@@ -57,6 +57,8 @@ tripFor4(PersonalWeight, mary(MB, MP), sean(SB, SP), paula(PTB, PP), thomas(PTB,
 
 %% D %%
 
+%% The packates are not included since they don't actually benefit the users going on this specific trip.
+
 equipment2(PersonalWeight, jill(JB,JP), kyle(KB,KP), tents(Tent), backpacks(BP), TotalSpendingCost) :- equipment2(PersonalWeight, jill(JB,JP), kyle(KB,KP), tents(Tent), backpacks(BP), TotalSpendingCost, _, _, _).
 equipment2(PersonalWeight, jill(JB,JP), kyle(KB,KP), tents(Tent), backpacks(BP), TotalSpendingCost, TotalCost, BW, TotalWeight) :- 
                                 tent(Tent, _, TW, TC),
