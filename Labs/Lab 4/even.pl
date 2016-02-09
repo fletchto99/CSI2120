@@ -1,0 +1,1 @@
+evenNumber(L, H, L) :- L =< H, 0 is L mod 2.
