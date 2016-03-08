@@ -5,7 +5,7 @@
 
 (define (sumNumbersRecurse input numbers letters) (
     if (null? input)
-        (cons letters (sum numbers))
+        (cons letters (list (sum numbers)))
         (let ((x (car input))) (
             if (number? x)
                 (sumNumbersRecurse (cdr input) (append numbers (list x) ) letters)
@@ -14,6 +14,14 @@
 (define (sumNumbers numbers) 
     (sumNumbersRecurse numbers '() '()))
 
-(sumNumbers '(a 2 4 a b 5))
+;(sumNumbers '(a 2 4 a b 5))
 
-;(define (quatenary baseTenNumber))
+(define (quatenary baseTenNumber) 
+    (if (eqv? baseTenNumber 0)
+        0
+        (string->number 
+            (string-append
+                (number->string (quatenary (quotient baseTenNumber 4)))
+                (number->string (remainder baseTenNumber 4))))))
+
+;(quatenary 16)
