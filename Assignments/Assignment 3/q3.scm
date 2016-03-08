@@ -23,7 +23,7 @@
 (define (showAllRestSumRecurse current limit results) (
     cond
         ((> current limit) (fold cons '() results))
-        ((= 0 (remainder current 3)) (showAllRestSumRecurse (+ current 1) limit (cons (cons current (list (restSum current))) results)))
+        ((= 0 (remainder (restSum current) 3)) (showAllRestSumRecurse (+ current 1) limit (cons (cons current (list (restSum current))) results)))
         (else (showAllRestSumRecurse (+ current 1) limit results))))
 
 (define (showAllRestSum low high) (showAllRestSumRecurse low high '()))
