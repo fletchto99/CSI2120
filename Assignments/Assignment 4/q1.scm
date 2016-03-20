@@ -48,11 +48,11 @@
 
 (define (mergeALot lst) (
     let ((check (checkList lst '() 1))) (
-    if (null? check)
-        (sort (mergeLists lst '()) <)
-        (format "ERROR: The following lists are not sorted: ~s" check))))
+      if (null? check)
+          (sort (mergeLists lst '()) <)
+          (format "ERROR: The following lists are not sorted: ~s" check))))
 
 
-;(mergeALot '((1 3 5) (2 4 6) (2 6 8))) 
-(mergeALot '((1 3 5) (2 0 6) (2 6 8) (3 1) (5 4 3 2 1 0) (1 5 9 13 17)))
+(mergeALot '((1 3 5) (2 4 6) (2 6 8))) 
+;(mergeALot '((1 3 5) (2 0 6) (2 6 8) (3 1) (5 4 3 2 1 0) (1 5 9 13 17)))
 ;(mergeALot '((1 4 7) (5 6 1))) 
