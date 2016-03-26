@@ -1,0 +1,4 @@
+2007, Chevrolet, Impala, 10.7 litre/100 km, 0.538 m^3
+2016, Honda, Civic 4Dr, 6.7 litre/100 km, 0.425 m^3
+2016, Toyota, Prius, 4.5 litre/100 km, 0.765 m^3
+2016, Ford, Mustang, 12.4 litre/100 km, 0.34 m^3

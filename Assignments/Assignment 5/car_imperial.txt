@@ -1,0 +1,4 @@
+2007, Chevrolet, Impala, 22 mpg, 19 ft^3
+2016, Honda, Civic 4Dr, 35 mpg, 15 ft^3
+2016, Toyota, Prius, 52 mpg, 27 ft^3
+2016, Ford, Mustang, 19 mpg, 12 ft^3
