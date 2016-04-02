@@ -16,10 +16,10 @@ func main() {
     fmt.Printf("%d number of u\n", count(text, "u") + count(text, "U"))
 }
 
-func count(str, a) {
+func count(str string, a string) int {
     sum := 0
-    for i := 0; i<len(str);i++ {
-        if str[i] == a {
+    for c := range str {
+        if c == a {
             sum += 1
         }
     }
