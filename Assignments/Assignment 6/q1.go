@@ -11,7 +11,6 @@ type House struct {
     name string
     rooms []string
     sizeFt []roomSz
-
 }
 
 type Semi struct {
